@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};OPENCV_EXE_DIR;QT_EXE_DIR"
+        },   
+    "cmake.preferredGenerators": [
+        "Ninja"
+    ],
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "cmake.configureEnvironment": {
+        "CMAKE_PREFIX_PATH": "OPENCV_CMAKE_DIR;QT_CMAKE_DIR"
+    },
+    "C_Cpp.default.browse.databaseFilename": "${workspaceFolder}/.vscode/.BROWSE.VC.DB"
+}
