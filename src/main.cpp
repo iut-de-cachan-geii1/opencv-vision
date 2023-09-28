@@ -19,20 +19,19 @@
 
 using namespace cv;
 using namespace cv::face;
-using namespace std;
 
-static void read_csv(const string &filename, vector<Mat> &images, vector<int> &labels, char separator = ';')
+static void read_csv(const std::string &filename, std::vector<Mat> &images, std::vector<int> &labels, char separator = ';')
 {
-    std::ifstream file(filename.c_str(), ifstream::in);
+    std::ifstream file(filename.c_str(), std::ifstream::in);
     if (!file)
     {
-        string error_message = "No valid input file was given, please check the given filename.";
+        std::string error_message = "No valid input file was given, please check the given filename.";
         CV_Error(Error::StsBadArg, error_message);
     }
-    string line, path, classlabel;
+    std::string line, path, classlabel;
     while (getline(file, line))
     {
-        stringstream liness(line);
+        std::stringstream liness(line);
         getline(liness, path, separator);
         getline(liness, classlabel);
         if (!path.empty() && !classlabel.empty())
@@ -60,19 +59,19 @@ int main(int argc, char *argv[])
     // if no arguments were given.
     if (argc != 4)
     {
-        cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>" << endl;
-        cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
-        cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database." << endl;
-        cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
+        std::cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>\n";
+        std::cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection.\n";
+        std::cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database.\n";
+        std::cout << "\t <device id> -- The webcam device id to grab frames from.\n";
         exit(1);
     }
     // Get the path to your CSV:
-    string fn_haar = string(argv[1]);
-    string fn_csv = string(argv[2]);
+    std::string fn_haar = std::string(argv[1]);
+    std::string fn_csv = std::string(argv[2]);
     int deviceId = atoi(argv[3]);
-    // These vectors hold the images and corresponding labels:
-    vector<Mat> images;
-    vector<int> labels;
+    // These std::vectors hold the images and corresponding labels:
+    std::vector<Mat> images;
+    std::vector<int> labels;
     // Read in the data (fails if no valid input filename is given, but you'll get an error message):
     try
     {
@@ -80,7 +79,7 @@ int main(int argc, char *argv[])
     }
     catch (const cv::Exception &e)
     {
-        cerr << "Error opening file \"" << fn_csv << "\". Reason: " << e.msg << endl;
+        std::cerr << "Error opening file \"" << fn_csv << "\". Reason: " << e.msg << "\n";
         // nothing more we can do
         exit(1);
     }
@@ -104,7 +103,7 @@ int main(int argc, char *argv[])
     // Check if we can use this device at all:
     if (!cap.isOpened())
     {
-        cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
+        std::cerr << "Capture Device ID " << deviceId << "cannot be opened.\n";
         return -1;
     }
     // Holds the current frame from the Video device:
@@ -118,7 +117,7 @@ int main(int argc, char *argv[])
         Mat gray;
         cvtColor(original, gray, COLOR_BGR2GRAY);
         // Find the faces in the frame:
-        vector<Rect_<int>> faces;
+        std::vector<Rect_<int>> faces;
         haar_cascade.detectMultiScale(gray, faces);
         // At this point you have the position of the faces in
         // faces. Now we'll get the faces, make a prediction and
@@ -147,7 +146,7 @@ int main(int argc, char *argv[])
             // First of all draw a green rectangle around the detected face:
             rectangle(original, face_i, Scalar(0, 255, 0), 1);
             // Create the text we will annotate the box with:
-            string box_text;
+            std::string box_text;
             if (prediction == 1)
                 box_text = format("Bruce");
             else if (prediction == 2)
