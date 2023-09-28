@@ -3,12 +3,14 @@ file(GLOB_RECURSE sources
     "*.cpp"
     "*.ui"
     "*.qrc"
+    "*.h"
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MyQtProject
         MANUAL_FINALIZATION
         ${sources}
+        ${header_files}
     )
 else()
     add_executable(MyQtProject

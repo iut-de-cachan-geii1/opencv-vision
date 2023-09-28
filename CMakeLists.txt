@@ -60,6 +60,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Widgets Multimedia Multime
 find_package(OpenCV REQUIRED) # http://opencv.org
 
 include_directories(include)
+file(GLOB_RECURSE header_files "include/*.h")
 
 # Recurse into the "src" subdirectory. This does not actually
 # cause another cmake executable to run. The same process will walk through
