@@ -4,26 +4,15 @@
 //
 
 #include <QApplication>
-#include <QThread>
-#include <QObject>
 #include "mainwindow.h"
-#include "opencvthread.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    OpenCVThread *t = new OpenCVThread(argc, argv);
+    MainWindow w(argc,argv);
 
-    t->start();
     w.show();
-
-    QObject::connect(
-        t,
-        &OpenCVThread::resultReady,
-        [&a](int result) {
-            qDebug() << "OpenCV thread has returned " << result << " to the main thread.";
-        });
 
     return QApplication::exec();
 }

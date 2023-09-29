@@ -1,3 +1,7 @@
+#ifndef OPENCVTHREAD_H
+#define OPENCVTHREAD_H
+
+
 #include "opencv2/core.hpp"
 #include "opencv2/face.hpp"
 #include "opencv2/highgui.hpp"
@@ -33,3 +37,5 @@ private:
     int _argc;
     char **_argv;
 };
+
+#endif
