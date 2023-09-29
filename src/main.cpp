@@ -13,17 +13,17 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    QThread *t = new OpenCVThread(argc, argv);
+    OpenCVThread *t = new OpenCVThread(argc, argv);
 
     t->start();
     w.show();
 
-    // QObject::connect(
-    //     t,
-    //     &OpenCVThread::resultReady,
-    //     [&a](int result) {
-    //         qDebug() << "OpenCV thread has returned " << result << " to the main thread.";
-    //     });
+    QObject::connect(
+        t,
+        &OpenCVThread::resultReady,
+        [&a](int result) {
+            qDebug() << "OpenCV thread has returned " << result << " to the main thread.";
+        });
 
     return QApplication::exec();
 }
